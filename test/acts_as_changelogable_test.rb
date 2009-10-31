@@ -39,7 +39,7 @@ class ActsAsChangelogableTest < ActiveSupport::TestCase
     assert_match "{\"name\":[null,\"foo\"],", changelog.diff
     assert_match "\"created_at\":[null,", changelog.diff
     assert_match "\"updated_at\":[null,", changelog.diff
-    assert_match "\"id\":[null,2]}", changelog.diff
+    assert_match "\"id\":[null,#{test_model.id}]}", changelog.diff
   end
 
   test "it fills in the Changelog entry with deets on update" do
