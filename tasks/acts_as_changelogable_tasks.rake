@@ -4,7 +4,7 @@ namespace :acts_as_changelogable do
     task :create_migration_file => :environment do
 
       unless migration_file_exists?
-        File.open(generate_migration_filename, "w") do |file|
+        File.open(migration_file_name = generate_migration_filename, "w") do |file|
           file.puts "class CreateActsAsChangelogable < ActiveRecord::Migration"
           file.puts "  def self.up"
           file.puts "    create_table :acts_as_changelogs do |t|"
@@ -26,8 +26,9 @@ namespace :acts_as_changelogable do
           file.puts "  end"
           file.puts "end"
         end
+        puts "#{migration_file_name} created."
       else
-        puts "Appears the migration file already exists"
+        puts "Appears the migration file already exists."
       end
     end
   end

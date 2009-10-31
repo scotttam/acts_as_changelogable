@@ -7,7 +7,7 @@ To Install:
 
 script/plugin install git://github.com/scotttam/acts_as_changelogable.git
 rake acts_as_changelogable:db:create_migration_file
-rake db:migrate (don't forget to do your test environment as wel)
+rake db:migrate (don't forget to do your test environment as well)
 
 cd vendor/plugins/acts_as_changelogable
 rake test
