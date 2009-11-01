@@ -2,6 +2,7 @@ class Changelog < ActiveRecord::Base
   set_table_name "acts_as_changelogs"
   
   belongs_to :user
+  belongs_to :record, :polymorphic => true
   
   before_save :set_user
    
