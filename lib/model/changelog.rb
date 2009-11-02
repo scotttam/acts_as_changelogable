@@ -15,6 +15,6 @@ class Changelog < ActiveRecord::Base
   private
 
   def set_user
-    self.user = @@current_user
+    self.user = @@current_user if Changelog.class_variable_defined?(:@@current_user)
   end
 end
