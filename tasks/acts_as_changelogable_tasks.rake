@@ -4,7 +4,7 @@ namespace :acts_as_changelogable do
     task :create_migration_file => :environment do
 
       unless migration_file_exists?
-        File.open(migration_file_name = generate_migration_filename, "w") do |file|
+        File.open(generate_migration_filename, "w") do |file|
           file.puts "class CreateActsAsChangelogable < ActiveRecord::Migration"
           file.puts "  def self.up"
           file.puts "    create_table :acts_as_changelogs do |t|"
@@ -16,19 +16,33 @@ namespace :acts_as_changelogable do
           file.puts "      t.string :description"
           file.puts "      t.timestamps"
           file.puts "    end"
-          file puts ""
+          file.puts ""
           file.puts "    add_index :acts_as_changelogs, :record_id"
           file.puts "    add_index :acts_as_changelogs, :user_id"
+          file.puts ""
+          file.puts "    create_table :acts_as_changelog_commits do |t|"
+          file.puts "      t.timestamps"
+          file.puts "    end"
+          file.puts ""
+          file.puts "    create_table :acts_as_changelog_changelogs_commits do |t|"
+          file.puts "      t.integer :changelog_id"
+          file.puts "      t.integer :commit_id"
+          file.puts "      t.timestamps"
+          file.puts "    end"
+          file.puts ""
+          file.puts "    add_index :acts_as_changelog_changelogs_commits, :changelog_id"
+          file.puts "    add_index :acts_as_changelog_changelogs_commits, :commit_id"
           file.puts "  end"
           file.puts ""
           file.puts "  def self.down"
           file.puts "    drop_table :acts_as_changelogs"
+          file.puts "    drop_table :acts_as_changelog_commits"
+          file.puts "    drop_table :acts_as_changelog_changelogs_commits"
           file.puts "  end"
           file.puts "end"
         end
-        puts "#{migration_file_name} created."
       else
-        puts "Appears the migration file already exists."
+        puts "Appears the migration file already exists"
       end
     end
   end

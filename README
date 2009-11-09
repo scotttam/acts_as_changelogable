@@ -3,22 +3,14 @@ ActsAsChangelogable
 
 Introduction goes here.
 
-- To Install:
+To Install:
 
 script/plugin install git://github.com/scotttam/acts_as_changelogable.git
 rake acts_as_changelogable:db:create_migration_file
-rake db:migrate (don't forget to do your test environment as well)
+rake db:migrate (don't forget to do your test environment as wel)
 
 cd vendor/plugins/acts_as_changelogable
 rake test
-
-- Add the following to your application controller:
-
-before_filter :set_acts_as_changelogable_current_user
-
-def set_acts_as_changelogable_current_user
-  Changelog.current_user = current_user
-end
 
 Example
 =======
