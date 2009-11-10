@@ -1,7 +1,7 @@
 require '../test_helper'
 
-class ChangelogsCommitTest < ActiveSupport::TestCase
+class ActsAsChangelogable::ChangelogsCommitTest < ActiveSupport::TestCase
   test "it can be created" do
-    assert ChangelogsCommit.new
+    assert ActsAsChangelogable::ChangelogsCommit.create!
   end
 end
