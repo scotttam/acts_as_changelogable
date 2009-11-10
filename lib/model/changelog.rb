@@ -21,7 +21,7 @@ module ActsAsChangelogable
     private
 
     def set_user
-      self.user = @@current_user if Changelog.class_variable_defined?(:@@current_user)
+      self.user = @@current_user if self.class.class_variable_defined?(:@@current_user)
     end
 
     def record
