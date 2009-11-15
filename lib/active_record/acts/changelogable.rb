@@ -33,9 +33,9 @@ module ActiveRecord
         end
 
         def changelog_entry(operation)
-          ActsAsChangelogable::Changelog.create(:record_id => self.id, :record_type => self.class.to_s, :user_id => get_user_id,
-                                                :operation => operation, :diff => self.changes.to_json,
-                                                :description => "#{self.class} #{operation}d at #{operated_at}")
+          Changelog.create(:record_id => self.id, :record_type => self.class.to_s, :user_id => get_user_id,
+                           :operation => operation, :diff => self.changes.to_json,
+                           :description => "#{self.class} #{operation}d at #{operated_at}")
         end
 
         def operated_at

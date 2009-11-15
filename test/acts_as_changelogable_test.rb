@@ -10,6 +10,14 @@ end
 class ActsAsChangelogableTest < ActiveSupport::TestCase
   setup do
     Changelog.delete_all
+
+    ChangelogSession.begin
+    mock_user = User.find_by_email("nick@liftium.com")
+    Changelog.current_user = mock_user
+  end
+
+  teardown do
+    ChangelogSession.end
   end
 
   test "it can be created" do
@@ -33,7 +41,7 @@ class ActsAsChangelogableTest < ActiveSupport::TestCase
     changelog = Changelog.find(:first)
     assert_equal test_model.id, changelog.record_id
     assert_equal test_model.class.to_s, changelog.record_type
-    assert_nil   changelog.user_id
+    assert_equal 42,  changelog.user_id
     assert_equal "create", changelog.operation
     assert_match "TestModel created at", changelog.description
     assert_match "{\"name\":[null,\"foo\"],", changelog.diff

@@ -8,9 +8,9 @@ module ActiveRecord
           end
 
           def call(env)
-            ActsAsChangelogable::Session.begin
+            ChangelogSession.begin
             status, header, response = @app.call(env)
-            ActsAsChangelogable::Session.end
+            ChangelogSession.end
             return status, header, response
           end
         end
