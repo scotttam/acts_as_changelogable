@@ -1,6 +1,7 @@
 class Changelog < ActiveRecord::Base
   belongs_to :user
   belongs_to :record, :polymorphic => true
+  has_many   :changelogs_commits
 
   before_save :set_user
   after_save :record_history
@@ -16,8 +17,7 @@ class Changelog < ActiveRecord::Base
   end
 
   def commit_id
-    changelogs_commit = ChangelogsCommit.find_all_by_changelog_id(self.id)
-    changelogs_commit.empty? ? nil : changelogs_commit.first.commit.id
+    changelogs_commits.empty? ? nil : changelogs_commits.first.commit.id
   end
 
   private
